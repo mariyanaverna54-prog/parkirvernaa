@@ -1,0 +1,446 @@
+:root {
+    --sidebar-width: 280px;
+    --bg-body: #fff9f5;
+    --bg-sidebar: #ffffff;
+    --accent-color: #f97316; /* Orange */
+    --accent-light: #fff7ed;
+    --text-main: #431407;
+    --text-muted: #9a3412;
+    --border-color: #fed7aa;
+}
+
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background-color: var(--bg-body) !important; 
+    color: var(--text-main);
+}
+
+/* --- SIDEBAR & NAV --- */
+#sidebar {
+    min-width: var(--sidebar-width);
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    min-height: 100vh;
+}
+
+.nav-link {
+    color: var(--text-muted) !important;
+    font-weight: 600;
+    border-radius: 12px;
+    margin: 5px 15px;
+    transition: 0.3s;
+}
+
+.nav-link:hover, 
+.nav-link.active {
+    background: var(--accent-color) !important;
+    color: #fff !important;
+}
+
+/* --- CARD --- */
+.card-custom {
+    background: #fff !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.05);
+    position: relative;
+    z-index: 1;
+}
+
+/* Pastikan dropdown tidak tertutup card */
+.card-custom:has(.dropdown.show) {
+    z-index: auto;
+}
+
+/* --- TABLE --- */
+.table {
+    position: relative;
+    z-index: 1;
+}
+
+.table thead th {
+    background-color: var(--accent-light) !important;
+    color: var(--accent-color) !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* FIX WARNA ISI TABEL */
+.table tbody td {
+    color: var(--text-main) !important;
+    font-weight: 500;
+}
+
+.table tbody td:first-child {
+    font-weight: 700;
+}
+
+.table-hover tbody tr:hover td {
+    color: var(--text-main) !important;
+}
+
+.plat-nomor {
+    background: #111;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+    letter-spacing: normal; /* penting */
+    white-space: nowrap; /* supaya tidak pecah */
+}
+
+/* --- BADGE STATUS --- */
+.badge-parkir {
+    padding: 8px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.status-proses { 
+    background: #fef3c7; 
+    color: #d97706; 
+}
+
+.status-selesai { 
+    background: #dcfce7; 
+    color: #16a34a; 
+}
+
+/* --- BUTTON --- */
+.btn-orange {
+    background: linear-gradient(135deg, #fff7ed, #ffedd5) !important;
+    color: #ea580c !important;
+    border: 2px solid #fed7aa !important;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.btn-orange:hover {
+    background: linear-gradient(135deg, #fed7aa, #fdba74) !important;
+    color: #c2410c !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.4);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+    color: #1d4ed8 !important;
+    border: 2px solid #93c5fd !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #93c5fd, #60a5fa) !important;
+    color: #1e40af !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
+    color: #15803d !important;
+    border: 2px solid #6ee7b7 !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #6ee7b7, #34d399) !important;
+    color: #14532d !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #fee2e2, #fecaca) !important;
+    color: #dc2626 !important;
+    border: 2px solid #fca5a5 !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #fca5a5, #f87171) !important;
+    color: #b91c1c !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+    color: #b45309 !important;
+    border: 2px solid #fcd34d !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #fcd34d, #fbbf24) !important;
+    color: #92400e !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+    color: #1d4ed8 !important;
+    border: 2px solid #93c5fd !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #93c5fd, #60a5fa) !important;
+    color: #1e40af !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+    color: #4b5563 !important;
+    border: 2px solid #d1d5db !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #d1d5db, #9ca3af) !important;
+    color: #1f2937 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(107, 114, 128, 0.4);
+}
+
+/* Button Small */
+.btn-sm {
+    padding: 6px 14px !important;
+    font-size: 0.85rem !important;
+    border-radius: 8px !important;
+}
+
+/* Button Large */
+.btn-lg {
+    padding: 14px 28px !important;
+    font-size: 1.1rem !important;
+    border-radius: 12px !important;
+}
+
+/* Button Outline */
+.btn-outline-orange {
+    background: transparent !important;
+    border: 2px solid #f97316 !important;
+    color: #f97316 !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-orange:hover {
+    background: #f97316 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+/* Button Link */
+.btn-link {
+    color: #f97316 !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    color: #ea580c !important;
+    transform: translateX(4px);
+}
+
+/* ===== PROFILE PUTIH CLEAN ===== */
+
+.profile-box {
+    background: #ffffff;
+    padding: 8px 16px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.profile-text small {
+    color: #6b7280;
+    font-size: 11px;
+    display: block;
+}
+
+.profile-text strong {
+    color: #431407;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.profile-icon {
+    background: linear-gradient(135deg, #f97316, #fb7185);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-profile-card {
+    background: #ffffff !important;
+    border-radius: 12px;
+    padding: 6px 16px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.user-profile-card p,
+.user-profile-card span {
+    color: #431407 !important;
+}
+
+
+/* === PAGE TITLE STANDARDIZATION === */
+.page-title {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #431407 !important;
+    margin-bottom: 0.5rem !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    line-height: 1.2 !important;
+}
+
+.page-subtitle {
+    font-size: 0.9rem !important;
+    color: #9a3412 !important;
+    margin-bottom: 0 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+.page-header-section {
+    margin-bottom: 2rem !important;
+}
+
+/* Override h3 dan h5 yang ada class page-title */
+h3.page-title,
+h5.page-title {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+}
+
+
+/* === COMMON PAGE OVERRIDES === */
+/* CSS ini menggantikan style yang diulang di banyak halaman */
+
+/* Override dark theme ke orange theme */
+#content, .container-fluid {
+    background-color: #fff9f5 !important;
+}
+
+#sidebar {
+    background: #ffffff !important;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.05) !important;
+}
+
+#sidebar .sidebar-header h4 {
+    color: #1f2937 !important;
+}
+
+#sidebar .sidebar-header i {
+    color: #f97316 !important;
+}
+
+#sidebar .nav-link {
+    color: #6b7280 !important;
+}
+
+#sidebar .nav-link:hover {
+    color: #1f2937 !important;
+    background: rgba(249, 115, 22, 0.1) !important;
+}
+
+#sidebar .nav-link.active {
+    background: linear-gradient(135deg, #fb923c, #f97316) !important;
+    color: #fff !important;
+}
+
+#sidebar hr {
+    border-color: #e5e7eb !important;
+}
+
+#sidebar small {
+    color: #9ca3af !important;
+}
+
+.card {
+    background: white !important;
+}
+
+/* === DROPDOWN FIX FOR ALL PAGES === */
+.dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    z-index: 999999 !important;
+    margin-top: 8px !important;
+}
+
+.dropdown-menu.show {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+}
+
+.dropdown {
+    position: relative !important;
+    z-index: 99999 !important;
+}
+
+.profile-dropdown-trigger {
+    position: relative !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+
+/* Pastikan card/table tidak menutupi dropdown */
+.card, .table-responsive, table, tbody, thead {
+    position: relative !important;
+    z-index: 1 !important;
+}

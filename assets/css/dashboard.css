@@ -1,0 +1,109 @@
+:root {
+    --sidebar-width: 280px;
+    --bg-body: #fff9f5;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --accent-color: #f97316;
+    --accent-light: #fff7ed;
+    --text-main: #431407;
+    --text-muted: #9a3412;
+    --border-color: #fed7aa;
+    --success-color: #10b981;
+    --info-color: #3b82f6;
+}
+
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background-color: var(--bg-body) !important; 
+    margin: 0;
+    color: var(--text-main);
+}
+
+/* Base Card Style */
+.card-custom {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.05);
+    transition: 0.3s;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 20px -3px rgba(249, 115, 22, 0.1);
+}
+
+/* Varian Card Orange (Khusus Pendapatan Owner) */
+.card-custom.bg-orange {
+    background-color: var(--accent-color) !important;
+    border: none !important;
+    color: #ffffff !important;
+}
+
+.card-custom.bg-orange h6, 
+.card-custom.bg-orange h2, 
+.card-custom.bg-orange p,
+.card-custom.bg-orange small {
+    color: #ffffff !important;
+}
+
+.card-custom.bg-orange .icon-circle {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+/* Icon Styles */
+.icon-circle {
+    width: 55px;
+    height: 55px;
+    background: var(--accent-light);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+/* Typography Inside Cards */
+.card-custom h6 {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-custom h2 {
+    color: var(--text-main);
+    font-weight: 800;
+    margin-bottom: 0;
+    font-size: 1.6rem;
+}
+
+/* Utility Classes */
+.text-orange { color: var(--accent-color) !important; }
+.bg-orange-light { background-color: var(--accent-light) !important; }
+.rounded-4 { border-radius: 1rem !important; }
+
+/* Progress Bar Custom */
+.progress {
+    background-color: #fcece0;
+    border-radius: 10px;
+}
+
+.container-fluid { 
+    padding: 0 40px 40px 40px; 
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-fluid { padding: 0 20px 20px 20px; }
+}

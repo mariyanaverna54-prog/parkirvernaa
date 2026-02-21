@@ -1,0 +1,140 @@
+:root {
+    --primary: #fb923c;   /* Orange Soft */
+    --accent: #f97316;    /* Orange Bold */
+    --bg-light: #f8fafc;  /* Background Putih Kebiruan dikit biar sejuk */
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+}
+
+body.login-page {
+    background: linear-gradient(135deg, #fff5ed 0%, #ffffff 100%);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.glass-card {
+    background: #ffffff;
+    border: 1px solid rgba(249, 115, 22, 0.1);
+    border-radius: 24px;
+    padding: 40px;
+    /* Shadow lebih lembut dan tipis agar terlihat clean */
+    box-shadow: 0 20px 25px -5px rgba(249, 115, 22, 0.05), 0 8px 10px -6px rgba(249, 115, 22, 0.05);
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.2);
+}
+
+.glass-card h1 {
+    color: var(--text-dark);
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.form-label {
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-bottom: 8px;
+}
+
+.input-group-custom {
+    background: #f1f5f9;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.input-group-custom:focus-within {
+    background: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+}
+
+.input-group-custom i {
+    color: var(--text-muted);
+    padding-left: 15px;
+}
+
+/* Eye icon lebih gelap biar keliatan */
+#togglePassword {
+    color: #1e293b !important;
+    font-size: 16px;
+}
+
+.input-group-custom input {
+    background: transparent;
+    border: none;
+    color: var(--text-dark);
+    padding: 12px 15px;
+    font-size: 15px;
+    width: 100%;
+    outline: none;
+}
+
+.input-group-custom input::placeholder {
+    color: #94a3b8;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.3);
+    filter: brightness(1.05);
+}
+
+.error-alert {
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    color: #b91c1c;
+    font-size: 13px;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+}
