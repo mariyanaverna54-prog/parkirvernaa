@@ -115,9 +115,7 @@
                         <th class="text-center">Plat Nomor</th>
                         <th class="text-start">Info Kendaraan</th>
                         <th class="text-center">Status Parkir</th>
-                        <?php if($_SESSION['user']['role'] == 'owner'): ?>
-                            <th width="15%" class="text-center">Keterangan</th>
-                        <?php elseif($_SESSION['user']['role'] == 'admin'): ?>
+                        <?php if($_SESSION['user']['role'] == 'admin'): ?>
                             <th width="15%" class="text-center">Aksi</th>
                         <?php endif; ?>
                     </tr>
@@ -159,25 +157,10 @@
                                     <?php endif; ?>
                                 </td>
                                 
+                                <?php if($_SESSION['user']['role'] == 'admin'): ?>
                                 <td class="text-center">
-                                    <?php if($_SESSION['user']['role'] == 'owner'): ?>
-                                        <!-- UNTUK OWNER: Tampilkan info keterangan -->
-                                        <?php if (empty($status)): ?>
-                                            <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #f3f4f6, #e5e7eb); color: #6b7280; border: 2px solid #d1d5db; font-weight: 600;">
-                                                <i class="fas fa-minus-circle me-1"></i>Belum Parkir
-                                            </span>
-                                        <?php elseif ($status == 'masuk'): ?>
-                                            <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #fef3c7, #fde68a); color: #b45309; border: 2px solid #fcd34d; font-weight: 600;">
-                                                <i class="fas fa-parking me-1"></i>Sedang Parkir
-                                            </span>
-                                        <?php else: ?>
-                                            <span class="badge px-3 py-2" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #15803d; border: 2px solid #6ee7b7; font-weight: 600;">
-                                                <i class="fas fa-check-circle me-1"></i>Selesai
-                                            </span>
-                                        <?php endif; ?>
-                                    <?php elseif($_SESSION['user']['role'] == 'admin'): ?>
-                                        <!-- UNTUK ADMIN: Tampilkan tombol aksi -->
-                                        <div class="d-flex justify-content-center gap-2">
+                                    <!-- UNTUK ADMIN: Tampilkan tombol aksi -->
+                                    <div class="d-flex justify-content-center gap-2">
                                             <?php if (empty($status)): ?>
                                                 <a href="index.php?c=Transaksi&m=masuk&id=<?= $d['id_kendaraan'] ?>" 
                                                    class="btn btn-masuk-soft btn-sm">
@@ -208,7 +191,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="<?= ($_SESSION['user']['role'] == 'owner' || $_SESSION['user']['role'] == 'admin') ? '5' : '4' ?>" class="text-center py-5 text-muted">Belum ada data kendaraan terdaftar.</td>
+                            <td colspan="<?= ($_SESSION['user']['role'] == 'admin') ? '5' : '4' ?>" class="text-center py-5 text-muted">Belum ada data kendaraan terdaftar.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

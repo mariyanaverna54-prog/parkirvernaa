@@ -31,7 +31,7 @@
                                     <option value="">-- Pilih --</option>
                                     <option value="Mobil">Mobil</option>
                                     <option value="Motor">Motor</option>
-                                    <option value="Truk">Truk</option>
+                                    <option value="Truk">Truk/Bus</option>
                                 </select>
                             </div>
 
@@ -123,6 +123,9 @@ function pilihAreaOtomatis() {
             areaSelect.selectedIndex = i;
             break;
         } else if (jenis === "Motor" && (namaArea.includes("lantai 2") || namaArea.includes("lt 2"))) {
+            areaSelect.selectedIndex = i;
+            break;
+        } else if (jenis === "Elf" && namaArea.includes("elf")) {
             areaSelect.selectedIndex = i;
             break;
         }

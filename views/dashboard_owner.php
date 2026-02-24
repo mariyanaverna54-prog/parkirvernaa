@@ -60,9 +60,6 @@
                         <h5 class="fw-bold mb-0" style="color: var(--text-main);">Komposisi Kendaraan</h5>
                         <small class="text-muted">Data berdasarkan jenis hari ini</small>
                     </div>
-                    <a href="index.php?c=area" class="btn btn-sm btn-orange-light text-orange fw-bold rounded-pill px-3 py-2">
-                        <i class="fas fa-list me-1"></i> Cek Area
-                    </a>
                 </div>
                 
                 <div class="row align-items-center h-100">
@@ -121,7 +118,7 @@
 
                 <div class="text-center mt-auto">
                     <p class="small text-muted mb-3 italic">Butuh data pembukuan?</p>
-                    <a href="index.php?c=Laporan" class="btn btn-warning w-100 text-white fw-bold rounded-3 py-3 mb-2 shadow-sm">
+                    <a href="index.php?c=Laporan" class="btn w-100 fw-bold rounded-3 py-3 mb-2 shadow-sm" style="background: linear-gradient(135deg, #fb923c, #f97316); color: white; border: none;">
                         <i class="fas fa-file-export me-2"></i> Lihat Laporan
                     </a>
                 </div>

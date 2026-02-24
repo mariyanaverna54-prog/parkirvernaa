@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label fw-bold">Nama</label>
+                    <label class="form-label fw-bold">Nama </label>
                     <input type="text" name="nama_lengkap" class="form-control" required>
                 </div>
 

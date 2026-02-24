@@ -110,7 +110,7 @@ class TransaksiController {
             if ($id) {
                 $kendaraan = (new TransaksiModel)->getById($id);
                 if ($kendaraan) {
-                    $total_bayar = 3000; 
+                    // Biarkan view yang hitung total_bayar berdasarkan tarif database
                     include "views/transaksi/keluar.php";
                     include "views/layout/footer.php";
                 } else {

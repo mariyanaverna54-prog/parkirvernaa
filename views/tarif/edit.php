@@ -26,11 +26,8 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Jenis Kendaraan</label>
-                    <select name="jenis_kendaraan" class="form-control" required>
-                        <option value="motor" <?= $data['jenis_kendaraan'] == 'motor' ? 'selected' : '' ?>>Motor</option>
-                        <option value="mobil" <?= $data['jenis_kendaraan'] == 'mobil' ? 'selected' : '' ?>>Mobil</option>
-                        <option value="truk" <?= $data['jenis_kendaraan'] == 'truk/bus' ? 'selected' : '' ?>>Truk/Bus</option>
-                    </select>
+                    <input type="text" name="jenis_kendaraan" class="form-control" value="<?= $data['jenis_kendaraan'] ?>" required>
+                    <small class="text-muted">Masukkan jenis kendaraan sesuai kebutuhan</small>
                 </div>
 
                 <div class="mb-3">

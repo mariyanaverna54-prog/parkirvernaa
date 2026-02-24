@@ -24,21 +24,16 @@
                 <div class="mb-3">
                     <label class="form-label fw-bold">Jenis Kendaraan</label>
                     <select name="jenis_kendaraan" class="form-control" required>
-                        <option value="motor" <?= $data['jenis_kendaraan'] == 'motor' ? 'selected' : '' ?>>Motor</option>
-                        <option value="mobil" <?= $data['jenis_kendaraan'] == 'mobil' ? 'selected' : '' ?>>Mobil</option>
-                        <option value="truk" <?= $data['jenis_kendaraan'] == 'truk' ? 'selected' : '' ?>>Truk</option>
-                        <option value="bus" <?= $data['jenis_kendaraan'] == 'bus' ? 'selected' : '' ?>>Bus</option>
+                        <option value="Motor" <?= $data['jenis_kendaraan'] == 'Motor' ? 'selected' : '' ?>>Motor</option>
+                        <option value="Mobil" <?= $data['jenis_kendaraan'] == 'Mobil' ? 'selected' : '' ?>>Mobil</option>
+                        <option value="Truk" <?= $data['jenis_kendaraan'] == 'Truk' ? 'selected' : '' ?>>Truk/Bus</option>
+                        <option value="Elf" <?= $data['jenis_kendaraan'] == 'Elf' ? 'selected' : '' ?>>Elf</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-bold">Warna</label>
                     <input type="text" name="warna" class="form-control" value="<?= $data['warna'] ?>" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Pemilik</label>
-                    <input type="text" name="pemilik" class="form-control" value="<?= $data['pemilik'] ?>" required>
                 </div>
 
                 <div class="d-flex gap-2">

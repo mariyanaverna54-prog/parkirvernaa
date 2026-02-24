@@ -12,7 +12,7 @@ class UserModel {
   }
 
   function all(){
-    $q = $this->db->query("SELECT * FROM tb_user ORDER BY id_user DESC");
+    $q = $this->db->query("SELECT * FROM tb_user ORDER BY FIELD(role, 'owner', 'admin', 'petugas')");
     return $q->fetchAll(PDO::FETCH_ASSOC);
   }
 

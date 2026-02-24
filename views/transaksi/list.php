@@ -104,43 +104,48 @@
                 <tbody>
                 <?php if (!empty($data)): ?>
                     <?php $no=1; foreach($data as $d): ?>
-                        <tr>
-                            <td class="ps-4"><?= $no++ ?></td>
+                        <tr style="height: 60px;">
+                            <td class="ps-4 fw-bold"><?= $no++ ?></td>
                             <td class="text-center">
-                                <div class="d-flex justify-content-center">
-                                    <span class="badge bg-dark px-3 py-2 font-monospace fs-6 shadow-sm text-uppercase" 
-                                          style="min-width: 120px; letter-spacing: 2px; border: 2px solid #333; border-radius: 6px;">
-                                        <?= htmlspecialchars($d['plat_nomor']) ?>
-                                    </span>
+                                <span class="badge bg-dark px-3 py-1 text-uppercase" 
+                                      style="letter-spacing: 1px; font-size: 0.85rem;">
+                                    <?= htmlspecialchars($d['plat_nomor']) ?>
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex flex-column align-items-center">
+                                    <strong style="font-size: 0.95rem;"><?= date('H:i', strtotime($d['waktu_masuk'])) ?></strong>
+                                    <small class="text-muted" style="font-size: 0.75rem;"><?= date('d/m/Y', strtotime($d['waktu_masuk'])) ?></small>
                                 </div>
                             </td>
                             <td class="text-center">
-                                <strong><?= date('H:i', strtotime($d['waktu_masuk'])) ?></strong><br>
-                                <small class="text-muted"><?= date('d/m/Y', strtotime($d['waktu_masuk'])) ?></small>
-                            </td>
-                            <td class="text-center">
-                                <span class="badge bg-success-subtle text-success border border-success px-3 rounded-pill">
-                                    Aktif
+                                <span class="badge px-3 py-1" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #15803d; border: 2px solid #6ee7b7; font-weight: 600; font-size: 0.75rem;">
+                                    <i class="fas fa-check-circle me-1"></i>Aktif
                                 </span>
                             </td>
                             <?php if($_SESSION['user']['role'] == 'petugas'): ?>
-                            <td class="text-end pe-4">
-                                <a href="index.php?c=Transaksi&m=keluar&id=<?= $d['id_parkir'] ?>" 
-                                   class="btn btn-keluar-soft btn-sm me-2">
-                                    <i class="fas fa-sign-out-alt me-1"></i> Keluar
-                                </a>
-                                <a href="index.php?c=Transaksi&m=struk&id=<?= $d['id_parkir'] ?>" 
-                                   target="_blank"
-                                   class="btn btn-struk-soft btn-sm">
-                                    <i class="fas fa-print me-1"></i> Struk
-                                </a>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="index.php?c=Transaksi&m=keluar&id=<?= $d['id_parkir'] ?>" 
+                                       class="btn btn-keluar-soft btn-sm">
+                                        <i class="fas fa-sign-out-alt me-1"></i> Keluar
+                                    </a>
+                                    <a href="index.php?c=Transaksi&m=struk&id=<?= $d['id_parkir'] ?>" 
+                                       target="_blank"
+                                       class="btn btn-struk-soft btn-sm">
+                                        <i class="fas fa-print me-1"></i> Struk
+                                    </a>
+                                </div>
                             </td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="4" class="text-center py-5 text-muted">Tidak ada kendaraan yang sedang parkir.</td>
+                        <td colspan="<?= ($_SESSION['user']['role'] == 'petugas') ? '5' : '4' ?>" class="text-center py-5 text-muted">
+                            <i class="fas fa-inbox fa-3x mb-3 d-block opacity-25"></i>
+                            Tidak ada kendaraan yang sedang parkir.
+                        </td>
                     </tr>
                 <?php endif; ?>
                 </tbody>

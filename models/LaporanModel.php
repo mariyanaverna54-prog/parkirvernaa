@@ -10,7 +10,7 @@ public function getLaporan($tgl_awal, $tgl_akhir, $search = '') {
     // Gunakan parameter untuk keamanan (SQL Injection)
     $params = [$tgl_awal, $tgl_akhir];
     
-    $sql = "SELECT t.*, k.plat_nomor 
+    $sql = "SELECT t.*, k.plat_nomor, k.jenis_kendaraan 
             FROM tb_transaksi t 
             INNER JOIN tb_kendaraan k ON t.id_kendaraan = k.id_kendaraan 
             WHERE t.status = 'keluar' 

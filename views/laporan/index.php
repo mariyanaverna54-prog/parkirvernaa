@@ -109,14 +109,12 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold m-0"><i class="fas fa-file-invoice-dollar me-2"></i>Laporan Parkir</h3>
         
-        <?php if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'petugas') : ?>
-            <a target="_blank"
-               href="index.php?c=Laporan&m=cetak&tgl_awal=<?= $_GET['tgl_awal'] ?? date('Y-m-d') ?>&tgl_akhir=<?= $_GET['tgl_akhir'] ?? date('Y-m-d') ?>"
-               class="btn btn-success shadow-sm px-4"
-               style="background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important; color: #15803d !important; border: 2px solid #6ee7b7 !important; font-weight: 600;">
-               <i class="fas fa-print me-2"></i> Cetak Laporan
-            </a>
-        <?php endif; ?>
+        <a target="_blank"
+           href="index.php?c=Laporan&m=cetak&tgl_awal=<?= $_GET['tgl_awal'] ?? date('Y-m-d') ?>&tgl_akhir=<?= $_GET['tgl_akhir'] ?? date('Y-m-d') ?>"
+           class="btn btn-success shadow-sm px-4"
+           style="background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important; color: #15803d !important; border: 2px solid #6ee7b7 !important; font-weight: 600;">
+           <i class="fas fa-print me-2"></i> Cetak Laporan
+        </a>
     </div>
 
     <div class="card border-0 shadow-sm mb-4" style="border-radius: 15px;">
@@ -161,45 +159,50 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover align-middle bg-white shadow-sm" style="border-radius: 10px; overflow: hidden;">
-            <thead class="table-dark">
-                <tr>
-                    <th class="py-3 ps-3">No</th>
-                    <th>Plat Nomor</th>
-                    <th>Waktu Masuk</th>
-                    <th>Waktu Keluar</th>
-                    <th>Durasi</th>
-                    <th>Total Biaya</th>
-                    <th>Metode</th>
-                    <th class="text-center">Status</th>
-                </tr>
-            </thead>
+    <div class="card border-0 shadow-sm" style="border-radius: 15px; overflow: hidden;">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle bg-white mb-0">
+                <thead style="background: linear-gradient(135deg, #fb923c, #f97316);">
+                    <tr>
+                        <th class="py-3 ps-3 text-white" width="3%">No</th>
+                        <th class="text-white" width="10%">Plat Nomor</th>
+                        <th class="text-white" width="8%">Jenis</th>
+                        <th class="text-white" width="12%">Waktu Masuk</th>
+                        <th class="text-white" width="12%">Waktu Keluar</th>
+                        <th class="text-white text-center" width="8%">Durasi</th>
+                        <th class="text-white text-end" width="10%">Total Biaya</th>
+                        <th class="text-white text-center" width="8%">Metode</th>
+                        <th class="text-center text-white" width="10%">Status</th>
+                    </tr>
+                </thead>
             <tbody>
                 <?php if (!empty($data)): ?>
                     <?php $no=1; foreach($data as $d): ?>
                     <tr data-plat="<?= strtoupper($d['plat_nomor']) ?>" class="laporan-row">
-                        <td class="ps-3"><?= $no++ ?></td>
+                        <td class="ps-3 fw-bold"><?= $no++ ?></td>
                         <td>
-                            <span class="badge bg-dark text-uppercase px-3 py-2" style="letter-spacing: 1px; font-family: monospace;">
+                            <span class="badge bg-dark text-uppercase px-2 py-1" style="letter-spacing: 0.5px; font-size: 0.75rem;">
                                 <?= $d['plat_nomor'] ?>
                             </span>
                         </td>
-                        <td><small class="text-muted"><i class="far fa-clock me-1"></i><?= $d['waktu_masuk'] ?></small></td>
+                        <td>
+                            <span class="badge px-2 py-1" style="background: #fff7ed; color: #f97316; font-size: 0.7rem;">
+                                <?= $d['jenis_kendaraan'] ?? '-' ?>
+                            </span>
+                        </td>
+                        <td><small class="text-muted"><i class="far fa-clock me-1"></i><?= date('d/m/Y H:i:s', strtotime($d['waktu_masuk'])) ?></small></td>
                         <td>
                             <small class="text-primary fw-bold">
-                                <i class="fas fa-sign-out-alt me-1"></i><?= $d['waktu_keluar'] ?? '-' ?>
+                                <i class="fas fa-sign-out-alt me-1"></i><?= $d['waktu_keluar'] ? date('d/m/Y H:i:s', strtotime($d['waktu_keluar'])) : '-' ?>
                             </small>
                         </td>
                         
-                        <td class="fw-bold text-dark">
+                        <td class="fw-bold text-dark text-center">
                             <?php 
                                 if (!empty($d['waktu_keluar'])) {
                                     $awal  = new DateTime($d['waktu_masuk']);
                                     $akhir = new DateTime($d['waktu_keluar']);
                                     $diff  = $awal->diff($akhir);
-                                    
-                                    // Menampilkan Jam dan Menit
                                     echo ($diff->days * 24) + $diff->h . "j " . $diff->i . "m";
                                 } else {
                                     echo "-";
@@ -207,10 +210,10 @@
                             ?>
                         </td>
 
-                        <td class="fw-bold text-success">Rp <?= number_format($d['biaya_total'] ?? 0, 0, ',', '.') ?></td>
-                        <td>
-                            <span class="badge bg-info-subtle text-info border border-info-subtle px-3">
-                                <?= $d['metode_bayar'] ?? 'Tunai' ?>
+                        <td class="fw-bold text-success text-end">Rp <?= number_format($d['biaya_total'] ?? 0, 0, ',', '.') ?></td>
+                        <td class="text-center">
+                            <span class="badge bg-info text-white px-2 py-1" style="font-size: 0.7rem;">
+                                <?= strtoupper($d['metode_bayar'] ?? 'CASH') ?>
                             </span>
                         </td>
                         <td class="text-center">
@@ -228,7 +231,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="8" class="text-center py-5 text-muted">
+                        <td colspan="9" class="text-center py-5 text-muted">
                             <i class="fas fa-database fa-3x mb-3 d-block opacity-25"></i>
                             Data tidak ditemukan.
                         </td>
@@ -237,6 +240,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 
 <?php endif; ?>

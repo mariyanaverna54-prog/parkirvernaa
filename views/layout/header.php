@@ -172,9 +172,11 @@ $user_nama = $_SESSION['user']['nama_lengkap'] ?? $_SESSION['user']['nama_user']
                 <i class="fas fa-home"></i> Dashboard
             </a>
 
+            <?php if (in_array($user_role, ['admin', 'petugas'])): ?>
              <a href="index.php?c=Kendaraan&m=index" class="nav-link <?= (isset($_GET['c']) && $_GET['c'] == 'Kendaraan') ? 'active' : '' ?>">
                 <i class="fas fa-car"></i> Kendaraan
             </a>
+            <?php endif; ?>
             
             <?php if (in_array($user_role, ['admin', 'petugas'])): ?>
             <a href="index.php?c=Transaksi&m=index" class="nav-link <?= (isset($_GET['c']) && $_GET['c'] == 'Transaksi') ? 'active' : '' ?>">
@@ -255,10 +257,13 @@ $user_nama = $_SESSION['user']['nama_lengkap'] ?? $_SESSION['user']['nama_user']
                 </div>
                 <div style="padding: 10px; background: #fff7ed; border-radius: 8px; border-left: 3px solid #f97316;">
                     <p class="mb-1" style="color: #431407; font-size: 0.75rem; line-height: 1.5;">
-                        <i class="fas fa-check-circle me-2" style="color: #16a34a;"></i>Dashboard Aktif
+                        <i class="fas fa-check-circle me-2" style="color: #16a34a;"></i>Dashboard
                     </p>
                     <p class="mb-0" style="color: #431407; font-size: 0.75rem; line-height: 1.5;">
-                        <i class="fas fa-check-circle me-2" style="color: #16a34a;"></i>Transaksi Siap
+                        <i class="fas fa-check-circle me-2" style="color: #16a34a;"></i>Cetak 
+                    </p>
+                    <p class="mb-0" style="color: #431407; font-size: 0.75rem; line-height: 1.5;">
+                        <i class="fas fa-check-circle me-2" style="color: #16a34a;"></i>Transaksi
                     </p>
                 </div>
             </div>
@@ -286,9 +291,6 @@ $user_nama = $_SESSION['user']['nama_lengkap'] ?? $_SESSION['user']['nama_user']
                 <div style="padding: 10px; background: #fff7ed; border-radius: 8px; border-left: 3px solid #f97316;">
                     <p class="mb-1" style="color: #431407; font-size: 0.75rem; line-height: 1.5;">
                         <i class="fas fa-chart-line me-2" style="color: #3b82f6;"></i>Laporan Real-time
-                    </p>
-                    <p class="mb-0" style="color: #431407; font-size: 0.75rem; line-height: 1.5;">
-                        <i class="fas fa-filter me-2" style="color: #8b5cf6;"></i>Filter Tanggal
                     </p>
                 </div>
             </div>
