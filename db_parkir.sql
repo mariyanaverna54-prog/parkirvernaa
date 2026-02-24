@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 24, 2026 at 04:42 AM
--- Server version: 8.4.3
--- PHP Version: 8.3.30
+-- Generation Time: Feb 24, 2026 at 02:47 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tb_area_parkir` (
   `id_area` int NOT NULL,
-  `nama_area` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_area` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `kapasitas` int NOT NULL,
   `terisi` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -39,10 +39,9 @@ CREATE TABLE `tb_area_parkir` (
 --
 
 INSERT INTO `tb_area_parkir` (`id_area`, `nama_area`, `kapasitas`, `terisi`) VALUES
-(1, 'Lantai 1 (Mobil)', 50, 2),
+(1, 'Lantai 1 (Mobil)', 50, 1),
 (2, 'Lantai 2 (Motor)', 100, 1),
-(3, 'Basement (Truk/Bus)', 20, 2),
-(4, 'Basemet 2 (Elf)', 20, 0);
+(3, 'Basement (Truk/Bus)', 20, 2);
 
 -- --------------------------------------------------------
 
@@ -52,10 +51,10 @@ INSERT INTO `tb_area_parkir` (`id_area`, `nama_area`, `kapasitas`, `terisi`) VAL
 
 CREATE TABLE `tb_kendaraan` (
   `id_kendaraan` int NOT NULL,
-  `plat_nomor` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_kendaraan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `warna` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `pemilik` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `plat_nomor` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_kendaraan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `warna` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pemilik` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_user` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -72,7 +71,9 @@ INSERT INTO `tb_kendaraan` (`id_kendaraan`, `plat_nomor`, `jenis_kendaraan`, `wa
 (7, 'D 2020 UFI', 'Truk/Bus', 'Merah', 'Administrator', 1),
 (8, 'H 8488 YAW', 'Mobil', 'Hitam', 'Administrator', 1),
 (9, 'F 7485 KAU', 'Truk/Bus', 'Hitam', 'Administrator', 1),
-(10, 'H 6384 UYA', 'Truk/Bus', 'Ungu', 'Administrator', 1);
+(10, 'H 6384 UYA', 'Truk/Bus', 'Ungu', 'Administrator', 1),
+(11, 'H 7384 UHY', 'Mobil', 'HItam', 'Administrator', 1),
+(12, 'G 7645 HUI', 'Motor', 'Hitam', 'Administrator', 1);
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ INSERT INTO `tb_kendaraan` (`id_kendaraan`, `plat_nomor`, `jenis_kendaraan`, `wa
 CREATE TABLE `tb_log_aktivitas` (
   `id_log` int NOT NULL,
   `id_user` int NOT NULL,
-  `aktivitas` text COLLATE utf8mb4_general_ci NOT NULL,
+  `aktivitas` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `waktu_aktivitas` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -141,7 +142,14 @@ INSERT INTO `tb_log_aktivitas` (`id_log`, `id_user`, `aktivitas`, `waktu_aktivit
 (47, 3, 'Logout dari sistem', '2026-02-23 19:45:47'),
 (48, 2, 'Login ke sistem', '2026-02-23 19:46:02'),
 (49, 1, 'Login ke sistem', '2026-02-24 11:34:13'),
-(50, 1, 'Login ke sistem', '2026-02-24 11:37:19');
+(50, 1, 'Login ke sistem', '2026-02-24 11:37:19'),
+(51, 1, 'Login ke sistem', '2026-02-24 18:34:35'),
+(52, 1, 'Logout dari sistem', '2026-02-24 18:35:16'),
+(53, 2, 'Login ke sistem', '2026-02-24 18:35:22'),
+(54, 2, 'Logout dari sistem', '2026-02-24 18:35:53'),
+(55, 3, 'Login ke sistem', '2026-02-24 18:35:58'),
+(56, 3, 'Logout dari sistem', '2026-02-24 18:36:30'),
+(57, 1, 'Login ke sistem', '2026-02-24 21:23:44');
 
 -- --------------------------------------------------------
 
@@ -151,8 +159,8 @@ INSERT INTO `tb_log_aktivitas` (`id_log`, `id_user`, `aktivitas`, `waktu_aktivit
 
 CREATE TABLE `tb_tarif` (
   `id_tarif` int NOT NULL,
-  `jenis_kendaraan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `tarif_per_jam` int NOT NULL
+  `jenis_kendaraan` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tarif_per_jam` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -160,10 +168,9 @@ CREATE TABLE `tb_tarif` (
 --
 
 INSERT INTO `tb_tarif` (`id_tarif`, `jenis_kendaraan`, `tarif_per_jam`) VALUES
-(1, 'motor', 3000),
-(2, 'mobil', 3000),
-(3, 'truk/bus', 5000),
-(5, 'Elf', 5000);
+(1, 'motor', '3000'),
+(2, 'mobil', '3000'),
+(3, 'truk/bus', '5000');
 
 -- --------------------------------------------------------
 
@@ -175,27 +182,32 @@ CREATE TABLE `tb_transaksi` (
   `id_parkir` int NOT NULL,
   `id_kendaraan` int NOT NULL,
   `id_area` int NOT NULL,
+  `id_tarif` int DEFAULT NULL,
+  `id_user` int DEFAULT NULL,
   `waktu_masuk` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `waktu_keluar` datetime DEFAULT NULL,
-  `biaya_total` int DEFAULT '0',
-  `metode_bayar` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'Tunai',
-  `status` enum('masuk','keluar') COLLATE utf8mb4_general_ci DEFAULT 'masuk'
+  `durasi_jam` int DEFAULT NULL,
+  `biaya_total` decimal(10,0) DEFAULT '0',
+  `metode_bayar` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Tunai',
+  `status` enum('masuk','keluar') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'masuk'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_transaksi`
 --
 
-INSERT INTO `tb_transaksi` (`id_parkir`, `id_kendaraan`, `id_area`, `waktu_masuk`, `waktu_keluar`, `biaya_total`, `metode_bayar`, `status`) VALUES
-(1, 6, 1, '2026-02-23 17:13:22', '2026-02-23 17:21:04', 3000, 'DEBIT', 'keluar'),
-(2, 5, 1, '2026-02-23 17:13:27', '2026-02-23 19:23:10', 9000, 'CASH', 'keluar'),
-(3, 4, 1, '2026-02-23 17:13:31', '2026-02-23 19:23:15', 9000, 'CASH', 'keluar'),
-(4, 2, 2, '2026-02-23 17:13:36', NULL, 0, 'Tunai', 'masuk'),
-(5, 1, 1, '2026-02-23 17:13:40', NULL, 0, 'Tunai', 'masuk'),
-(6, 7, 3, '2026-02-23 18:08:50', NULL, 0, 'Tunai', 'masuk'),
-(7, 8, 1, '2026-02-23 18:18:03', NULL, 0, 'Tunai', 'masuk'),
-(8, 9, 3, '2026-02-23 18:58:35', NULL, 0, 'Tunai', 'masuk'),
-(9, 10, 3, '2026-02-23 19:05:46', '2026-02-23 19:45:14', 3000, 'CASH', 'keluar');
+INSERT INTO `tb_transaksi` (`id_parkir`, `id_kendaraan`, `id_area`, `id_tarif`, `id_user`, `waktu_masuk`, `waktu_keluar`, `durasi_jam`, `biaya_total`, `metode_bayar`, `status`) VALUES
+(1, 6, 1, NULL, NULL, '2026-02-23 17:13:22', '2026-02-23 17:21:04', NULL, '3000', 'DEBIT', 'keluar'),
+(2, 5, 1, NULL, NULL, '2026-02-23 17:13:27', '2026-02-23 19:23:10', NULL, '9000', 'CASH', 'keluar'),
+(3, 4, 1, NULL, NULL, '2026-02-23 17:13:31', '2026-02-23 19:23:15', NULL, '9000', 'CASH', 'keluar'),
+(4, 2, 2, NULL, NULL, '2026-02-23 17:13:36', NULL, NULL, '0', 'Tunai', 'masuk'),
+(5, 1, 1, NULL, NULL, '2026-02-23 17:13:40', NULL, NULL, '0', 'Tunai', 'masuk'),
+(6, 7, 3, NULL, NULL, '2026-02-23 18:08:50', NULL, NULL, '0', 'Tunai', 'masuk'),
+(7, 8, 1, NULL, NULL, '2026-02-23 18:18:03', '2026-02-24 18:35:49', NULL, '75000', 'CASH', 'keluar'),
+(8, 9, 3, NULL, NULL, '2026-02-23 18:58:35', NULL, NULL, '0', 'Tunai', 'masuk'),
+(9, 10, 3, NULL, NULL, '2026-02-23 19:05:46', '2026-02-23 19:45:14', NULL, '3000', 'CASH', 'keluar'),
+(10, 11, 1, NULL, NULL, '2026-02-24 18:35:09', NULL, NULL, '0', 'Tunai', 'masuk'),
+(11, 12, 2, NULL, NULL, '2026-02-24 21:24:48', NULL, NULL, '0', 'Tunai', 'masuk');
 
 -- --------------------------------------------------------
 
@@ -205,20 +217,21 @@ INSERT INTO `tb_transaksi` (`id_parkir`, `id_kendaraan`, `id_area`, `waktu_masuk
 
 CREATE TABLE `tb_user` (
   `id_user` int NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `nama_lengkap` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `role` enum('admin','petugas','owner') COLLATE utf8mb4_general_ci NOT NULL
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_lengkap` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('admin','petugas','owner') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status_aksi` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `username`, `password`, `nama_lengkap`, `role`) VALUES
-(1, 'admin', '222', 'Administrator', 'admin'),
-(2, 'petugas', '333', 'Petugas Parkir', 'petugas'),
-(3, 'owner', '111', 'Owner Parkir', 'owner');
+INSERT INTO `tb_user` (`id_user`, `username`, `password`, `nama_lengkap`, `role`, `status_aksi`) VALUES
+(1, 'admin', '222', 'Administrator', 'admin', 1),
+(2, 'petugas', '333', 'Petugas Parkir', 'petugas', 1),
+(3, 'owner', '111', 'Owner Parkir', 'owner', 1);
 
 --
 -- Indexes for dumped tables
@@ -257,7 +270,9 @@ ALTER TABLE `tb_tarif`
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`id_parkir`),
   ADD KEY `id_kendaraan` (`id_kendaraan`),
-  ADD KEY `id_area` (`id_area`);
+  ADD KEY `id_area` (`id_area`),
+  ADD KEY `id_tarif` (`id_tarif`),
+  ADD KEY `fk_transaksi_user` (`id_user`);
 
 --
 -- Indexes for table `tb_user`
@@ -280,13 +295,13 @@ ALTER TABLE `tb_area_parkir`
 -- AUTO_INCREMENT for table `tb_kendaraan`
 --
 ALTER TABLE `tb_kendaraan`
-  MODIFY `id_kendaraan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_kendaraan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_log_aktivitas`
 --
 ALTER TABLE `tb_log_aktivitas`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tb_tarif`
@@ -298,7 +313,7 @@ ALTER TABLE `tb_tarif`
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_parkir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_parkir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
@@ -311,22 +326,21 @@ ALTER TABLE `tb_user`
 --
 
 --
--- Constraints for table `tb_kendaraan`
---
-ALTER TABLE `tb_kendaraan`
-  ADD CONSTRAINT `fk_kendaraan_user` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE SET NULL;
-
---
--- Constraints for table `tb_log_aktivitas`
---
-ALTER TABLE `tb_log_aktivitas`
-  ADD CONSTRAINT `fk_log_user` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE;
-
---
 -- Constraints for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  ADD CONSTRAINT `fk_transaksi_kendaraan` FOREIGN KEY (`id_kendaraan`) REFERENCES `tb_kendaraan` (`id_kendaraan`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_transaksi_area` FOREIGN KEY (`id_area`) REFERENCES `tb_area_parkir` (`id_area`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transaksi_tarif` FOREIGN KEY (`id_tarif`) REFERENCES `tb_tarif` (`id_tarif`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transaksi_user` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_transaksi_ibfk_1` FOREIGN KEY (`id_kendaraan`) REFERENCES `tb_kendaraan` (`id_kendaraan`),
+  ADD CONSTRAINT `tb_transaksi_ibfk_2` FOREIGN KEY (`id_tarif`) REFERENCES `tb_tarif` (`id_tarif`),
+  ADD CONSTRAINT `tb_transaksi_ibfk_3` FOREIGN KEY (`id_area`) REFERENCES `tb_area_parkir` (`id_area`);
+
+--
+-- Constraints for table `tb_user`
+--
+ALTER TABLE `tb_user`
+  ADD CONSTRAINT `tb_user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_log_aktivitas` (`id_user`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
