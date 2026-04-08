@@ -40,7 +40,7 @@
                                 <select name="id_area" id="id_area" class="form-select form-control-lg rounded-3 shadow-sm" required>
                                     <option value="">-- Pilih Lokasi Parkir --</option>
                                     <?php
-                                    $db = new PDO("mysql:host=localhost;dbname=db_parkir", "root", "");
+                                    $db = Database::connect();
                                     
                                     $sql = "SELECT a.*, 
                                             (SELECT COUNT(*) FROM tb_transaksi t 

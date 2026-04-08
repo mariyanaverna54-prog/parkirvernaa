@@ -154,12 +154,13 @@
         </div>
     </div>
     
-    <div class="no-print">
-        <button onclick="window.print()" class="btn btn-primary" style="background: linear-gradient(135deg, #fb923c, #f97316); border: none; padding: 12px 30px; border-radius: 10px; color: white; font-weight: bold; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); cursor: pointer; margin-right: 10px;">
-            <i class="fas fa-print"></i> Cetak Struk
+    <div class="no-print" style="text-align: center; margin-top: 20px;">
+        <link rel="stylesheet" href="assets/css/halaman.css">
+        <button onclick="window.print()" class="btn btn-orange px-4 py-2 me-2">
+            <i class="fas fa-print me-2"></i>Cetak Struk
         </button>
-        <button onclick="window.close()" class="btn btn-secondary" style="background: #6b7280; border: none; padding: 12px 30px; border-radius: 10px; color: white; font-weight: bold; box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3); cursor: pointer;">
-            <i class="fas fa-times"></i> Tutup
+        <button onclick="window.close()" class="btn btn-secondary px-4 py-2">
+            <i class="fas fa-times me-2"></i>Tutup
         </button>
     </div>
     

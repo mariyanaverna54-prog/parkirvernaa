@@ -126,14 +126,14 @@
                             <?php if($_SESSION['user']['role'] == 'petugas'): ?>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="index.php?c=Transaksi&m=keluar&id=<?= $d['id_parkir'] ?>" 
-                                       class="btn btn-keluar-soft btn-sm">
-                                        <i class="fas fa-sign-out-alt me-1"></i> Keluar
-                                    </a>
                                     <a href="index.php?c=Transaksi&m=struk&id=<?= $d['id_parkir'] ?>" 
                                        target="_blank"
                                        class="btn btn-struk-soft btn-sm">
                                         <i class="fas fa-print me-1"></i> Struk
+                                    </a>
+                                    <a href="index.php?c=Transaksi&m=keluar&id=<?= $d['id_parkir'] ?>" 
+                                       class="btn btn-keluar-soft btn-sm">
+                                        <i class="fas fa-sign-out-alt me-1"></i> Keluar
                                     </a>
                                 </div>
                             </td>
