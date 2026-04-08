@@ -94,6 +94,7 @@
                     <tr>
                         <th class="ps-4">No</th>
                         <th class="text-center">Plat Nomor</th>
+                        <th class="text-center">Jenis</th>
                         <th class="text-center">Waktu Masuk</th>
                         <th class="text-center">Status</th>
                         <?php if($_SESSION['user']['role'] == 'petugas'): ?>
@@ -110,6 +111,11 @@
                                 <span class="badge bg-dark px-3 py-1 text-uppercase" 
                                       style="letter-spacing: 1px; font-size: 0.85rem;">
                                     <?= htmlspecialchars($d['plat_nomor']) ?>
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge px-2 py-1" style="background: #fff7ed; color: #f97316; border: 1px solid #fed7aa; font-size: 0.75rem;">
+                                    <?= htmlspecialchars($d['jenis_kendaraan']) ?>
                                 </span>
                             </td>
                             <td class="text-center">

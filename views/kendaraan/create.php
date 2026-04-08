@@ -29,9 +29,9 @@
                                 <label class="form-label small fw-bold text-muted">Jenis Kendaraan</label>
                                 <select name="jenis_kendaraan" id="jenis_kendaraan" class="form-select form-control-lg rounded-3 shadow-sm" required onchange="pilihAreaOtomatis()">
                                     <option value="">-- Pilih --</option>
-                                    <option value="Mobil">Mobil</option>
-                                    <option value="Motor">Motor</option>
-                                    <option value="Truk">Truk/Bus</option>
+                                    <option value="Mobil">🚗 Mobil</option>
+                                    <option value="Motor">🏍️ Motor</option>
+                                    <option value="Truk">🚛 Truk/Bus</option>
                                 </select>
                             </div>
 
