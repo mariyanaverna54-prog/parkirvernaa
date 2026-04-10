@@ -7,7 +7,7 @@ class TarifModel {
   }
 
   function all(){
-    $q = $this->db->query("SELECT * FROM tb_tarif ORDER BY FIELD(LOWER(jenis_kendaraan), 'motor', 'mobil', 'truk/bus', 'elf')");
+    $q = $this->db->query("SELECT * FROM tb_tarif ORDER BY FIELD(LOWER(jenis_kendaraan), 'motor', 'mobil', 'truk', 'elf')");
     return $q->fetchAll(PDO::FETCH_ASSOC);
   }
 

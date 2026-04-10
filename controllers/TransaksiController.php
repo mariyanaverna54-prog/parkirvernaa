@@ -42,7 +42,7 @@ class TransaksiController {
             } elseif ($jenis == 'MOBIL') {
                 $nama_target = 'Lantai 1 (Mobil)';
             } else {
-                $nama_target = 'Basement (Truk/Bus)';
+                $nama_target = 'Basement (Truk)';
             }
 
             // Cari area dengan nama yang mengandung kata kunci (lebih fleksibel)

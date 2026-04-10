@@ -31,7 +31,7 @@
                                     <option value="">-- Pilih --</option>
                                     <option value="Mobil">🚗 Mobil</option>
                                     <option value="Motor">🏍️ Motor</option>
-                                    <option value="Truk">🚛 Truk/Bus</option>
+                                    <option value="Truk">🚛 Truk</option>
                                 </select>
                             </div>
 
@@ -100,11 +100,10 @@
 
 <script>
 function pilihAreaOtomatis() {
-    const jenis = document.getElementById('jenis_kendaraan').value;
+    const jenis = document.getElementById('jenis_kendaraan').value.toLowerCase();
     const areaSelect = document.getElementById('id_area');
     const options = areaSelect.options;
 
-    // Reset ke pilihan pertama jika jenis kosong
     if (jenis === "") {
         areaSelect.selectedIndex = 0;
         return;
@@ -112,20 +111,10 @@ function pilihAreaOtomatis() {
 
     for (let i = 0; i < options.length; i++) {
         const namaArea = options[i].getAttribute('data-nama');
-        
         if (!namaArea) continue;
 
-        // Logika pencocokan berdasarkan kata kunci di nama area
-        if (jenis === "Truk" && namaArea.includes("basement")) {
-            areaSelect.selectedIndex = i;
-            break;
-        } else if (jenis === "Mobil" && (namaArea.includes("lantai 1") || namaArea.includes("lt 1"))) {
-            areaSelect.selectedIndex = i;
-            break;
-        } else if (jenis === "Motor" && (namaArea.includes("lantai 2") || namaArea.includes("lt 2"))) {
-            areaSelect.selectedIndex = i;
-            break;
-        } else if (jenis === "Elf" && namaArea.includes("elf")) {
+        // Cocokkan nama area yang mengandung kata jenis kendaraan
+        if (namaArea.includes(jenis)) {
             areaSelect.selectedIndex = i;
             break;
         }

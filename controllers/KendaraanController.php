@@ -146,8 +146,20 @@ class KendaraanController {
         }
         
         $id = $_GET['id'];
-        $model = new KendaraanModel();
-        $model->delete($id);
+        $db = Database::connect();
+
+        // Cek apakah kendaraan sedang parkir
+        $cek = $db->prepare("SELECT id_parkir FROM tb_transaksi WHERE id_kendaraan = ? AND status = 'masuk'");
+        $cek->execute([$id]);
+        if($cek->fetch()) {
+            echo "<script>alert('Kendaraan sedang parkir, tidak bisa dihapus!'); window.location='index.php?c=Kendaraan&m=index';</script>";
+            exit;
+        }
+
+        // Hapus transaksi dulu baru hapus kendaraan
+        $db->prepare("DELETE FROM tb_transaksi WHERE id_kendaraan = ?")->execute([$id]);
+        $db->prepare("DELETE FROM tb_kendaraan WHERE id_kendaraan = ?")->execute([$id]);
+
         header("Location: index.php?c=Kendaraan&m=index");
         exit;
     }

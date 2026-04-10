@@ -1,62 +1,22 @@
 <?php include "views/layout/header.php"; 
+date_default_timezone_set('Asia/Jakarta');
 
-// --- LOGIKA PENGAMAN - AMBIL TARIF DARI DATABASE ---
-if (!isset($total_bayar) || $total_bayar == 0) {
-    if (isset($kendaraan['waktu_masuk']) && isset($kendaraan['jenis_kendaraan'])) {
-        // Ambil tarif dari database berdasarkan jenis kendaraan
-        $db = Database::connect();
-        $jenis = trim($kendaraan['jenis_kendaraan']);
-        
-        // Coba cari exact match dulu (case-insensitive, trim whitespace)
-        $stmt = $db->prepare("SELECT tarif_per_jam FROM tb_tarif WHERE TRIM(LOWER(jenis_kendaraan)) = TRIM(LOWER(?))");
-        $stmt->execute([$jenis]);
-        $tarif_data = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        // Jika tidak ada, coba cari dengan LIKE untuk variasi nama
-        if (!$tarif_data) {
-            $jenis_lower = strtolower($jenis);
-            
-            // Coba cari berdasarkan kata kunci
-            if (strpos($jenis_lower, 'truk') !== false || strpos($jenis_lower, 'bus') !== false || strpos($jenis_lower, 'elf') !== false) {
-                // Cari tarif untuk truk/bus/elf
-                $stmt = $db->query("SELECT tarif_per_jam FROM tb_tarif WHERE LOWER(jenis_kendaraan) LIKE '%truk%' OR LOWER(jenis_kendaraan) LIKE '%bus%' OR LOWER(jenis_kendaraan) LIKE '%elf%' ORDER BY tarif_per_jam DESC LIMIT 1");
-                $tarif_data = $stmt->fetch(PDO::FETCH_ASSOC);
-            } elseif (strpos($jenis_lower, 'mobil') !== false) {
-                // Cari tarif untuk mobil
-                $stmt = $db->query("SELECT tarif_per_jam FROM tb_tarif WHERE LOWER(jenis_kendaraan) LIKE '%mobil%' LIMIT 1");
-                $tarif_data = $stmt->fetch(PDO::FETCH_ASSOC);
-            } elseif (strpos($jenis_lower, 'motor') !== false) {
-                // Cari tarif untuk motor
-                $stmt = $db->query("SELECT tarif_per_jam FROM tb_tarif WHERE LOWER(jenis_kendaraan) LIKE '%motor%' LIMIT 1");
-                $tarif_data = $stmt->fetch(PDO::FETCH_ASSOC);
-            }
-        }
-        
-        // Jika masih tidak ada, ambil tarif terendah
-        if (!$tarif_data) {
-            $stmt_min = $db->query("SELECT MIN(tarif_per_jam) as min_tarif FROM tb_tarif");
-            $min_tarif = $stmt_min->fetch(PDO::FETCH_ASSOC);
-            $tarif_per_jam = $min_tarif['min_tarif'] ?? 2000;
-        } else {
-            $tarif_per_jam = $tarif_data['tarif_per_jam'];
-        }
-        
-        // Hitung durasi parkir
-        $awal   = new DateTime($kendaraan['waktu_masuk']);
-        $akhir = new DateTime(); 
-        $diff   = $awal->diff($akhir);
-        $jam    = $diff->h + ($diff->days * 24);
-        if ($diff->i > 0) $jam++; // Pembulatan ke atas jika ada menit
-        
-        $total_bayar = ($jam <= 0 ? 1 : $jam) * $tarif_per_jam; 
-    } else {
-        // Ambil tarif terendah dari database sebagai default
-        $db = Database::connect();
-        $stmt = $db->query("SELECT MIN(tarif_per_jam) as min_tarif FROM tb_tarif");
-        $min_tarif = $stmt->fetch(PDO::FETCH_ASSOC);
-        $total_bayar = $min_tarif['min_tarif'] ?? 2000;
-    }
-}
+// Ambil tarif langsung dari tb_tarif via JOIN
+$db = Database::connect();
+$stmt = $db->prepare("SELECT tf.tarif_per_jam 
+                      FROM tb_tarif tf
+                      WHERE LOWER(tf.jenis_kendaraan) = LOWER(?) LIMIT 1");
+$stmt->execute([trim($kendaraan['jenis_kendaraan'] ?? '')]);
+$tarif_data = $stmt->fetch(PDO::FETCH_ASSOC);
+$tarif_per_jam = $tarif_data['tarif_per_jam'] ?? 3000;
+
+// Hitung durasi
+$awal  = new DateTime($kendaraan['waktu_masuk'], new DateTimeZone('Asia/Jakarta'));
+$akhir = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+$diff  = $awal->diff($akhir);
+$jam   = ($diff->days * 24) + $diff->h;
+if ($diff->i > 0 || $diff->s > 0) $jam++;
+$total_bayar = ($jam <= 0 ? 1 : $jam) * $tarif_per_jam;
 ?>
 
 <link rel="stylesheet" href="assets/css/halaman.css">

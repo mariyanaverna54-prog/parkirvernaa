@@ -24,7 +24,7 @@
             <form method="POST" action="index.php?c=Tarif&m=store">
                 <div class="mb-3">
                     <label class="form-label fw-bold">Jenis Kendaraan</label>
-                    <input type="text" name="jenis_kendaraan" class="form-control" placeholder="Contoh: Motor, Mobil, Truk/Bus" required>
+                    <input type="text" name="jenis_kendaraan" class="form-control" placeholder="Contoh: Motor, Mobil, Truk" required>
                     <small class="text-muted">Masukkan jenis kendaraan sesuai kebutuhan</small>
                 </div>
 

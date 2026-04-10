@@ -24,10 +24,15 @@
                 <div class="mb-3">
                     <label class="form-label fw-bold">Jenis Kendaraan</label>
                     <select name="jenis_kendaraan" class="form-control" required>
-                        <option value="Motor" <?= $data['jenis_kendaraan'] == 'Motor' ? 'selected' : '' ?>>Motor</option>
-                        <option value="Mobil" <?= $data['jenis_kendaraan'] == 'Mobil' ? 'selected' : '' ?>>Mobil</option>
-                        <option value="Truk" <?= $data['jenis_kendaraan'] == 'Truk' ? 'selected' : '' ?>>Truk/Bus</option>
-                        <option value="Elf" <?= $data['jenis_kendaraan'] == 'Elf' ? 'selected' : '' ?>>Elf</option>
+                        <?php
+                        $tarif_list = Database::connect()->query("SELECT jenis_kendaraan FROM tb_tarif ORDER BY id_tarif ASC")->fetchAll();
+                        foreach($tarif_list as $t):
+                            $jenis = ucfirst($t['jenis_kendaraan']);
+                            $icon = strtolower($jenis) == 'motor' ? '🏍️' : (strtolower($jenis) == 'mobil' ? '🚗' : '🚛');
+                            $selected = (strtolower($data['jenis_kendaraan']) == strtolower($jenis)) ? 'selected' : '';
+                        ?>
+                            <option value="<?= htmlspecialchars($jenis) ?>" <?= $selected ?>><?= $icon ?> <?= htmlspecialchars($jenis) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 

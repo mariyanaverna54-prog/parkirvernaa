@@ -92,7 +92,7 @@
                             </li>
                             <li class="list-group-item border-0 px-0">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fw-semibold small"><i class="fas fa-truck text-secondary me-2"></i> Truk/Bus</span>
+                                    <span class="fw-semibold small"><i class="fas fa-truck text-secondary me-2"></i> Truk</span>
                                     <span class="badge bg-secondary rounded-pill">5%</span>
                                 </div>
                                 <div class="progress" style="height: 6px;">

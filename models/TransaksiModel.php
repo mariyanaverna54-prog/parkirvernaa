@@ -61,39 +61,40 @@ class TransaksiModel {
   public function keluar($id, $metode) {
     date_default_timezone_set('Asia/Jakarta');
 
-    // 1. Ambil info transaksi sebelum update
-    $stmt = $this->db->prepare("SELECT id_area, waktu_masuk FROM tb_transaksi WHERE id_parkir = ?");
+    // 1. Ambil info transaksi + jenis kendaraan + tarif langsung dari tb_tarif
+    $stmt = $this->db->prepare("SELECT t.id_area, t.waktu_masuk, k.jenis_kendaraan, 
+                                 tf.tarif_per_jam
+                                 FROM tb_transaksi t
+                                 JOIN tb_kendaraan k ON t.id_kendaraan = k.id_kendaraan
+                                 LEFT JOIN tb_tarif tf ON LOWER(tf.jenis_kendaraan) = LOWER(k.jenis_kendaraan)
+                                 WHERE t.id_parkir = ?");
     $stmt->execute([$id]);
     $tr = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if(!$tr) return false;
 
-    $id_area = $tr['id_area'];
-    $waktu_masuk = new DateTime($tr['waktu_masuk']);
-    $waktu_keluar = new DateTime();
+    $id_area       = $tr['id_area'];
+    $tarif_per_jam = $tr['tarif_per_jam'] ?? 3000;
+    $waktu_masuk   = new DateTime($tr['waktu_masuk']);
+    $waktu_keluar  = new DateTime();
     
-    // Hitung Biaya (3000 per jam)
+    // 2. Hitung durasi dan biaya
     $diff = $waktu_masuk->diff($waktu_keluar);
-    $jam = $diff->h + ($diff->days * 24);
+    $jam  = $diff->h + ($diff->days * 24);
     if($diff->i > 0 || $diff->s > 0) $jam++; 
-    $total_bayar = ($jam == 0 ? 1 : $jam) * 3000;
+    $total_bayar = ($jam == 0 ? 1 : $jam) * $tarif_per_jam;
 
-    // 2. Update status transaksi (Menggunakan kolom yang pasti ada di tb_transaksi)
-    $sql_update = "UPDATE tb_transaksi SET 
+    // 3. Update status transaksi
+    $res = $this->db->prepare("UPDATE tb_transaksi SET 
                     waktu_keluar = NOW(), 
                     biaya_total = ?,
                     status = 'keluar', 
                     metode_bayar = ? 
-                   WHERE id_parkir = ?";
-    
-    $res = $this->db->prepare($sql_update)->execute([$total_bayar, $metode, $id]);
+                   WHERE id_parkir = ?")->execute([$total_bayar, $metode, $id]);
 
-    if ($res) {
-        // 3. Update slot area parkir (Agar slot kembali tersedia)
-        if (!empty($id_area)) {
-            $this->db->prepare("UPDATE tb_area_parkir SET terisi = terisi - 1 WHERE id_area = ? AND terisi > 0")
-                     ->execute([$id_area]);
-        }
+    if ($res && !empty($id_area)) {
+        $this->db->prepare("UPDATE tb_area_parkir SET terisi = terisi - 1 WHERE id_area = ? AND terisi > 0")
+                 ->execute([$id_area]);
     }
 
     return $res;
